@@ -1,8 +1,15 @@
 # MWECAU DigiVote — Architecture Documentation
 
-**Public architecture reference** for the secure digital voting platform used by Mwenge Catholic University (MWECAU) student elections.
+**Repository Bio**
 
-This is a **standalone public documentation repository**. It focuses on **how the system works** at a high level so that students, staff, contributors, and other institutions can understand the design without access to the full application source.
+MWECAU DigiVote is the official electronic voting platform for Mwenge Catholic University (MWECAU) student elections. This repository provides the **public architecture documentation** for the system.
+
+It is designed as a clean, standalone resource for the MWECAU IT Department, university staff, student contributors, and other institutions interested in digital election systems. The documentation covers high-level design, key processes, technology choices, and visual diagrams — without exposing application source code or operational secrets.
+
+**Key Highlights**
+- Mermaid diagrams for system overview, data flows, security model, and deployment
+- Documentation on MySQL database, flexible email backends (Brevo / SMTP / AWS SES), caching, and scalability
+- Focus on secure, auditable, one-person-one-vote election processes
 
 > All diagrams are written in [Mermaid](https://mermaid.js.org/) and render natively on GitHub.
 
