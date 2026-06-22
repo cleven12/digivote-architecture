@@ -1,0 +1,55 @@
+flowchart TB
+    subgraph Users["👥 Users"]
+        Voter[Voters &<br/>Candidates]
+        ClassLeaders[Class Leaders]
+        Commissioners[Commissioners]
+        Observers[Observers]
+        Public[Public]
+    end
+
+    subgraph Edge["🌐 Edge / CDN"]
+        Cloudflare[Cloudflare<br/>Proxy + TLS]
+    end
+
+    subgraph App["🗳️ DigiVote Application"]
+        direction TB
+        Nginx[nginx<br/>Static + Reverse Proxy]
+        Gunicorn[Gunicorn<br/>(or uvicorn)]
+        Django["Django 5.2<br/>+ DRF + HTMX"]
+    end
+
+    subgraph Services["⚙️ Services"]
+        direction TB
+        MySQL[(MySQL)]
+        Redis[(Redis<br/>Cache + Broker)]
+        Celery["Celery Workers<br/>+ Beat"]
+        Cloudinary[Cloudinary<br/>(Media)]
+        EmailSvc[Email<br/>(Brevo / SMTP / AWS)]
+    end
+
+    Public --> Cloudflare
+    Voter --> Cloudflare
+    ClassLeaders --> Cloudflare
+    Commissioners --> Cloudflare
+    Observers --> Cloudflare
+
+    Cloudflare --> Nginx
+    Nginx --> Gunicorn
+    Gunicorn --> Django
+
+    Django --> MySQL
+    Django --> Redis
+    Django --> Celery
+    Celery --> Redis
+    Celery --> MySQL
+    Celery --> EmailSvc
+    Django --> Cloudinary
+
+    classDef user fill:#dbeafe,stroke:#1e40af
+    classDef edge fill:#e0e7ff,stroke:#3730a3
+    classDef app fill:#fef3c7,stroke:#854d0e
+    classDef data fill:#dcfce7,stroke:#166534
+    class Voter,ClassLeaders,Commissioners,Observers,Public user
+    class Cloudflare edge
+    class Nginx,Gunicorn,Django app
+    class MySQL,Redis,Celery,Cloudinary,EmailSvc data
