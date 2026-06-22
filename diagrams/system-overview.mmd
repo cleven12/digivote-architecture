@@ -1,6 +1,6 @@
 flowchart TB
     subgraph Users["👥 Users"]
-        Voter[Voters &<br/>Candidates]
+        Voter["Voters &\nCandidates"]
         ClassLeaders[Class Leaders]
         Commissioners[Commissioners]
         Observers[Observers]
@@ -8,23 +8,23 @@ flowchart TB
     end
 
     subgraph Edge["🌐 Edge / CDN"]
-        Cloudflare[Cloudflare<br/>Proxy + TLS]
+        Cloudflare["Cloudflare\nProxy + TLS"]
     end
 
     subgraph App["🗳️ DigiVote Application"]
         direction TB
-        Nginx[nginx<br/>Static + Reverse Proxy]
-        Gunicorn[Gunicorn<br/>(or uvicorn)]
-        Django["Django 5.2<br/>+ DRF + HTMX"]
+        Nginx["nginx\nStatic + Reverse Proxy"]
+        Gunicorn["Gunicorn\n(or uvicorn)"]
+        Django["Django 5.2\n+ DRF + HTMX"]
     end
 
     subgraph Services["⚙️ Services"]
         direction TB
         MySQL[(MySQL)]
-        Redis[(Redis<br/>Cache + Broker)]
-        Celery["Celery Workers<br/>+ Beat"]
-        Cloudinary[Cloudinary<br/>(Media)]
-        EmailSvc[Email<br/>(Brevo / SMTP / AWS)]
+        Redis["(Redis\nCache + Broker)"]
+        Celery["Celery Workers\n+ Beat"]
+        Cloudinary["Cloudinary\n(Media)"]
+        EmailSvc["Email\n(Brevo / SMTP / AWS)"]
     end
 
     Public --> Cloudflare
