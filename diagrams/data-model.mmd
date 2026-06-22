@@ -1,0 +1,57 @@
+classDiagram
+    class User {
+        +String registration_number PK
+        +String role
+        +Boolean is_verified
+        +String voter_id
+        +ForeignKey course, state
+    }
+    class CollegeData {
+        +String registration_number
+        +Boolean is_used
+        +ForeignKey uploaded_by
+    }
+    class Election {
+        +String title
+        +DateTime start_date, end_date
+        +Boolean is_active, has_ended, results_published
+    }
+    class ElectionLevel {
+        +String type
+    }
+    class Position {
+        +String title
+        +String gender_restriction
+    }
+    class Candidate {
+        +ForeignKey user
+        +Text bio, platform
+        +ForeignKey running_mate
+        +Integer vote_count
+    }
+    class VoterToken {
+        +ForeignKey user
+        +ForeignKey election
+        +ForeignKey election_level
+        +UUID token
+        +Boolean is_used
+        +DateTime expiry_date
+    }
+    class Vote {
+        +ForeignKey token
+        +ForeignKey candidate
+        +ForeignKey election_level
+        +ForeignKey position
+        +DateTime timestamp
+    }
+
+    User "1" --> "*" CollegeData : creates accounts from
+    Election "1" --> "*" ElectionLevel
+    ElectionLevel "1" --> "*" Position
+    Position "1" --> "*" Candidate
+    Election "1" --> "*" VoterToken
+    User "1" --> "*" VoterToken
+    VoterToken "1" --> "*" Vote
+    Candidate "1" --> "*" Vote
+
+    note for Vote "Public results use Vote + Candidate only.<br/>No direct link to User identity."
